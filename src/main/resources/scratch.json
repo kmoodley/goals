@@ -1,0 +1,31 @@
+{
+
+  "users": {
+    "first_name": "Malcolm",
+    "last_name": "Gladwell",
+    "title": "Mr",
+    "company": "Pushkin",
+    "email": "mallymal@glad.com",
+    "phone": "555-8899"
+  },
+
+  "goals": [{
+    "title" : "The Fellowship of the Ring",
+    "description" : "Read the book The Fellowship of the Ring",
+    "due_date" : "2001-07-13",
+    "progress" : 0.00
+  },
+  {
+    "title": "Perform L-Sit",
+    "description": "Perform a perfect L-Sit for at least 10 seconds",
+    "due_date": "2021-04-13",
+    "progress": 0.0
+  }]
+}
+
+
+
+
+
+
+

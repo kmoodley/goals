@@ -22,18 +22,19 @@ public class GoalsController
     private GoalService goalService;
 
     @GetMapping
-    @RequestMapping("{id}")
-    public List<Goal> list(@PathVariable Long id)
+    public List<Goal> list(@RequestParam String email) throws UserDoesNotExistException
     {
-        return goalService.getGoals(id);
+        LOG.info("Getting goals for user with email : " + email);
+        return goalService.getGoals(email);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping("/save/{id}")
-    public Goal createGoal(@PathVariable Long id, @RequestBody final Goal goal) throws UserDoesNotExistException
+    @RequestMapping("/save")
+    public Goal createGoal(@RequestParam String email, @RequestBody final Goal goal) throws UserDoesNotExistException
     {
-        return goalService.saveGoal(id, goal);
+        LOG.info("createGoal -> POST REQUEST : " + goal.toString() +", user email : "+ email);
+        return goalService.saveGoal(email, goal);
     }
 
 }

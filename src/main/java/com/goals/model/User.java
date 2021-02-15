@@ -17,12 +17,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @ToString
-public class User
+public class User extends EntityWithUUID
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-
     @NonNull
     private String firstName;
 
@@ -32,6 +28,7 @@ public class User
     private String title;
 
     @NonNull
+    @Column(unique = true)
     private String email;
 
     private String phone;

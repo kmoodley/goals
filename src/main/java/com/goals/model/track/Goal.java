@@ -4,30 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.goals.model.EntityWithUUID;
 import com.goals.model.User;
 import lombok.Data;
-import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Entity(name = "goals")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @Data
-@ToString
-public class Goal
+public class Goal extends EntityWithUUID
 {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "goal_id")
-    private Long goalId;
+    private String title;
 
-    private String goalTitle;
+    private String description;
 
-    private String goalDescription;
-
-    private LocalDate deadlineDate;
+    private LocalDate dueDate;
 
     private Double progress;
 
@@ -35,4 +32,15 @@ public class Goal
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @Override
+    public String toString()
+    {
+        return "Goal{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", dueDate=" + dueDate +
+                ", progress=" + progress +
+                '}';
+    }
 }

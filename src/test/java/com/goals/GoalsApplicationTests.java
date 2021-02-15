@@ -73,9 +73,9 @@ public class GoalsApplicationTests
         LOG.info("testGoal_Save ==>> Found user :: " + foundUser.toString() +" , save goal!");
 
         Goal goal = new Goal();
-        goal.setGoalTitle("Empty title");
-        goal.setGoalDescription("Empty description");
-        goal.setDeadlineDate(LocalDate.of(2021, 6,1));
+        goal.setTitle("Empty title");
+        goal.setDescription("Empty description");
+        goal.setDueDate(LocalDate.of(2021, 6,1));
         goal.setProgress(0.00);
         goal.setUser(foundUser);
         goalRepository.saveAndFlush(goal);
@@ -84,6 +84,6 @@ public class GoalsApplicationTests
                 .stream(goalRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
         savedGoal.stream().forEach(g -> LOG.info("testGoal_Save ==>> Found Goal ======== ::::: "
-                + g.getGoalTitle() +" from user:"+g.getUser().getFirstName()));
+                + g.getTitle() +" from user:"+g.getUser().getFirstName()));
     }
 }
