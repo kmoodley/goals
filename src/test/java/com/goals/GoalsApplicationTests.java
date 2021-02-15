@@ -55,7 +55,7 @@ public class GoalsApplicationTests
                 .stream(userRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
         actualList.stream().forEach(u -> LOG.info("testUser_Save ==>> Found User ======== ::::: " + u.getFirstName()));
-        Assert.assertEquals(2, actualList.size());
+        Assert.assertEquals(1, actualList.size());
     }
 
     @Test
@@ -70,20 +70,30 @@ public class GoalsApplicationTests
 
         User foundUser = userRepository.findByEmail(email);
         Assert.assertNotNull(foundUser);
-        LOG.info("testGoal_Save ==>> Found user :: " + foundUser.toString() +" , save goal!");
+        LOG.info("testGoal_Save ==>> Found user :: " + foundUser.toString() +" , save goal1!");
 
-        Goal goal = new Goal();
-        goal.setTitle("Empty title");
-        goal.setDescription("Empty description");
-        goal.setDueDate(LocalDate.of(2021, 6,1));
-        goal.setProgress(0.00);
-        goal.setUser(foundUser);
-        goalRepository.saveAndFlush(goal);
+        Goal goal1 = new Goal();
+        goal1.setTitle("Empty title 1 ");
+        goal1.setDescription("Empty description");
+        goal1.setDueDate(LocalDate.of(2021, 6,1));
+        goal1.setProgress(0.00);
+        goal1.setUser(foundUser);
+        goalRepository.saveAndFlush(goal1);
+
+        Goal goal2 = new Goal();
+        goal2.setTitle("Empty title 2");
+        goal2.setDescription("Empty description");
+        goal2.setDueDate(LocalDate.of(2022, 3,23));
+        goal2.setProgress(0.00);
+        goal2.setUser(foundUser);
+
+        goalRepository.saveAndFlush(goal2);
 
         List<Goal> savedGoal = StreamSupport
-                .stream(goalRepository.findAll().spliterator(), false)
+                .stream(goalRepository.findByUserEmail(user.getEmail()).spliterator(), false)
                 .collect(Collectors.toList());
         savedGoal.stream().forEach(g -> LOG.info("testGoal_Save ==>> Found Goal ======== ::::: "
                 + g.getTitle() +" from user:"+g.getUser().getFirstName()));
+        Assert.assertEquals(2, savedGoal.size());
     }
 }
