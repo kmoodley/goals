@@ -1,8 +1,5 @@
 package com.goals.track;
 
-import com.goals.model.track.Task;
-import com.goals.model.track.TaskComponent;
-import com.goals.model.track.TaskGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -27,7 +24,7 @@ class TrackComponentsTests
     @Test
     void testGoalCreation()
     {
-        TaskComponent taskGroup_Book1 = new TaskGroup("Book 1", 0.00, LocalDate.of(2021,3,20));
+        /*TaskComponent taskGroup_Book1 = new TaskGroup("Book 1", 0.00, LocalDate.of(2021,3,20));
         TaskComponent task_Book1_C1 = new Task("A Long-expected Party",0.00, LocalDate.of(2021,3,20));
         TaskComponent task_Book1_C2 = new Task("The Shadow of the Past",0.00, LocalDate.of(2021,3,20));
         TaskComponent task_Book1_C3 = new Task("Three is Company",0.00, LocalDate.of(2021,3,20));
@@ -65,7 +62,7 @@ class TrackComponentsTests
                 .stream()
                 .forEach(t -> taskGroup_Book2.add(t));
 
-        taskGroup_Book2.print();
+        taskGroup_Book2.print();*/
     }
 
 

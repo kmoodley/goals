@@ -1,5 +1,6 @@
 package com.goals.service;
 
+import com.goals.exception.GoalDoesNotExistException;
 import com.goals.exception.UserDoesNotExistException;
 import com.goals.model.User;
 import com.goals.model.track.Goal;
@@ -10,6 +11,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class GoalService
@@ -42,8 +45,26 @@ public class GoalService
         {
             throw new UserDoesNotExistException("User with id " + email + " does not exist!");
         }
-        LOG.info("saveGoal -> Found user: " + user + ", saving goal:"+goal.getTitle());
+        //LOG.info("saveGoal -> Found user: " + user + ", saving goal:"+goal.getTitle());
         goal.setUser(user);
         return goalRepository.save(goal);
     }
+
+    public Goal findGoalByUUID(UUID uuid) throws GoalDoesNotExistException
+    {
+        Optional<Goal> goalFoundById = goalRepository.findById(uuid);
+        return goalFoundById.orElseThrow(GoalDoesNotExistException::new);
+    }
+
+    public void deleteAll()
+    {
+        goalRepository.deleteAll();
+    }
+
+    public void deleteGoals(List<Goal> goals)
+    {
+        goalRepository.deleteInBatch(goals);
+    }
+
+
 }

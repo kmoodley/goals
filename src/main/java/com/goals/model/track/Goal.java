@@ -8,11 +8,10 @@ import com.goals.model.EntityWithUUID;
 import com.goals.model.User;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "goals")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -32,6 +31,10 @@ public class Goal extends EntityWithUUID
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @OneToMany(mappedBy = "goal", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Task> tasks = new ArrayList<>();
 
     @Override
     public String toString()

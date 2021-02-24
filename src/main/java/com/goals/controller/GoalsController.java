@@ -1,7 +1,7 @@
 package com.goals.controller;
 
+import com.goals.exception.GoalDoesNotExistException;
 import com.goals.exception.UserDoesNotExistException;
-import com.goals.model.User;
 import com.goals.model.track.Goal;
 import com.goals.service.GoalService;
 import org.apache.logging.log4j.LogManager;
@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/goals")
@@ -20,6 +21,13 @@ public class GoalsController
 
     @Autowired
     private GoalService goalService;
+
+    @GetMapping
+    @RequestMapping("/find_goal")
+    public Goal findUser(@RequestParam UUID uuid) throws GoalDoesNotExistException
+    {
+        return goalService.findGoalByUUID(uuid);
+    }
 
     @GetMapping
     public List<Goal> list(@RequestParam String email) throws UserDoesNotExistException

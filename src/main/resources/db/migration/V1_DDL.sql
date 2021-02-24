@@ -1,3 +1,7 @@
+DROP TABLE IF EXISTS tasks;
+DROP TABLE IF EXISTS goals;
+DROP TABLE IF EXISTS users;
+
 CREATE EXTENSION IF NOT EXISTS LTREE;
 
 CREATE TABLE users
@@ -21,11 +25,13 @@ CREATE TABLE goals(
    user_id INTEGER REFERENCES users (id)
 );
 
-CREATE TABLE tasks
-(
-    id serial primary key,
-    title varchar(50) NOT NULL,
-    due_date date NOT NULL,
-    progress REAL NOT NULL,
-    path LTREE
-)
+CREATE TABLE tasks(
+   id  INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+   title           varchar(50) NOT NULL,
+   due_date        date NOT NULL,
+   progress             REAL  NOT NULL,
+   task_path LTREE,
+   goal_id INTEGER REFERENCES goals (id)
+);
+
+CREATE INDEX tree_path_idx ON tasks USING GIST(task_path);

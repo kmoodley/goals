@@ -2,6 +2,7 @@ package com.goals.model;
 
 import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import java.util.UUID;
 public class EntityWithUUID
 {
     @Id
+    //@Column(columnDefinition = "uuid", updatable = false)
     @Type(type = "pg-uuid")
     private UUID id;
 
@@ -18,4 +20,8 @@ public class EntityWithUUID
         this.id = UUID.randomUUID();
     }
 
+    public UUID getId()
+    {
+        return id;
+    }
 }

@@ -1,5 +1,6 @@
 package com.goals.controller;
 
+import com.goals.exception.UserDoesNotExistException;
 import com.goals.model.User;
 import com.goals.service.UserService;
 import org.apache.logging.log4j.LogManager;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -24,6 +26,13 @@ public class UserController
     public Collection<User> list()
     {
         return userService.getUsers();
+    }
+
+    @GetMapping
+    @RequestMapping("/find_user")
+    public User findUser(@RequestParam UUID uuid) throws UserDoesNotExistException
+    {
+        return userService.findUserByUUID(uuid);
     }
 
     @PostMapping
